@@ -1,0 +1,342 @@
+/*消除浏览器padding和margin差异*/
+body,
+html {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+/*清除iphone原有样式*/
+input[type="text"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  -webkit-appearance: none;
+}
+textarea {
+  -webkit-appearance: none;
+}
+/*手机端点击input禁止放大*/
+input,
+input:focus,
+input:active {
+  user-select: text;
+}
+/*图片响应式*/
+img {
+  width: 100%;
+  height: auto;
+}
+/*全局配置*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  color: black;
+}
+ul {
+  list-style-type: none;
+}
+/*less颜色配置*/
+/* app */
+#app {
+  height: 100%;
+}
+/*sidebar*/
+#sidebar {
+  padding-top: 150px;
+  padding-bottom: 50px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 200px;
+  height: 100%;
+  background-color: #3F3F3F;
+  z-index: 99;
+  -webkit-transition: all 05s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+@media all and (max-width: 768px) {
+  #sidebar {
+    -webkit-transform: translate(-100%);
+    -moz-transfrom: translate(-100%);
+    transform: translate(-100%);
+  }
+}
+#sidebar {
+  /* 图标 */
+  /* 添加文章按钮 */
+  /* end add-btn */
+  /* 导入按钮 */
+  /* 文章列表 */
+  /* 收缩按钮/显示按钮 */
+  /* 设置hide样式，收展sidebar */
+}
+#sidebar .logo {
+  position: absolute;
+  height: 110px;
+  top: 0;
+  padding: 20px;
+  cursor: default;
+}
+#sidebar .add-btn {
+  position: absolute;
+  top: 110px;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+}
+#sidebar .add-btn button {
+  padding: 8px 15px;
+  background-color: transparent;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid white;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-transition: background-color, color 0.5s;
+  -moz-transition: background-color, color 0.5s;
+  transition: background-color, color 0.5s;
+}
+#sidebar .add-btn button:hover {
+  background-color: #7a7a7a;
+  color: #535967;
+}
+#sidebar .add-btn button:active {
+  outline: none;
+}
+#sidebar .import {
+  padding-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  color: #2C2C2C;
+  text-align: center;
+  font-size: 20px;
+}
+#sidebar .import label {
+  cursor: pointer;
+}
+#sidebar .import label:hover {
+  color: #7a7a7a;
+}
+#sidebar .import input[type=file] {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+#sidebar .article-list {
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+#sidebar .article-list > ul > li {
+  position: relative;
+  padding: 10px 20px 10px 33px;
+  margin: 0;
+  white-space: nowrap;
+  color: black;
+  font-size: 13px;
+  cursor: default;
+}
+#sidebar .article-list > ul > li::before {
+  content: "";
+  width: 20px;
+  height: 23px;
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  background-image: url(http://ohkgqh4gv.bkt.clouddn.com/file.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+#sidebar .article-list > ul > li.active {
+  border-left: 4px solid #5c87d6;
+  background-color: #535967;
+}
+#sidebar .article-list > ul > li:hover {
+  background-color: #5c87d6;
+  color: white;
+}
+#sidebar .article-list input {
+  width: 125px;
+  padding: 2px;
+  font-family: inherit;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+}
+#sidebar .article-list input.active {
+  background-color: white;
+  color: black;
+}
+#sidebar .article-list input:focus {
+  outline: none;
+}
+#sidebar .article-list button {
+  display: none;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+#sidebar .article-list button:focus {
+  outline: none;
+}
+#sidebar .article-list > ul > li:hover button {
+  display: inline-block;
+}
+#sidebar .article-list ul ul {
+  position: absolute;
+  right: 6px;
+  top: 38px;
+  background-color: white;
+  color: #2f2f2f;
+  border-radius: 3px;
+  text-align: center;
+  z-index: 99;
+  box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
+}
+#sidebar .article-list ul ul::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom-color: white;
+  position: absolute;
+  top: -20px;
+  left: 43%;
+  z-index: 66;
+}
+#sidebar .article-list ul ul li {
+  padding: 3px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+#sidebar .article-list ul ul li:hover {
+  background-color: #ececec;
+}
+#sidebar .article-list hr {
+  background-color: #7a7a7a;
+}
+#sidebar .hide-btn,
+#sidebar .show-btn {
+  position: absolute;
+  top: 45%;
+  width: 27px;
+  padding: 20px 3px;
+  font-size: 30px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+#sidebar .hide-btn:hover,
+#sidebar .show-btn:hover {
+  color: black;
+  background-color: rgba(74, 74, 74, 0.5);
+}
+#sidebar .hide-btn {
+  right: 0;
+}
+#sidebar .show-btn {
+  right: -27px;
+  display: none;
+}
+@media all and (max-width: 768px) {
+  #sidebar .show-btn {
+    display: block;
+  }
+}
+#sidebar .show-btn.show {
+  display: block;
+}
+#sidebar.hide {
+  -webkit-transform: translate(-100%);
+  -moz-transfrom: translate(-100%);
+  transform: translate(-100%);
+}
+/* 文章内容/编辑器的容器 */
+#content {
+  padding-left: 200px;
+  height: 100%;
+  -webkit-transition: padding-left 0.5s ease;
+  -moz-transition: padding-left 0.5s ease;
+  transition: padding-left 0.5s ease;
+}
+@media all and (max-width: 768px) {
+  #content {
+    padding-left: 0px;
+  }
+}
+#content.side-hide {
+  padding-left: 0px;
+}
+/* 文章内容 */
+#article-message {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 40px;
+  background-color: #7E92C7;
+  height: 150x;
+  float: right;
+  width: 100%;
+  color: white;
+  overflow: hidden;
+}
+#article-message p {
+  margin: 0;
+  padding: 0;
+}
+#article-message .article-title {
+  font-size: 35px;
+}
+#article-message .article-title textarea {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  display: block;
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  border: none;
+  resize: none;
+  line-height: 1em;
+}
+#article-message .article-title textarea:focus {
+  outline: none;
+}
+#article-message .article-detail {
+  font-size: 20px;
+}
+#article-message .article-detail span {
+  display: inline-block;
+  padding-right: 20px;
+}
+/* markdown编辑器 */
+#markdown-editor {
+  box-sizing: border-box;
+  padding-top: 150x;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+#markdown-container {
+  margin: 0;
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Window-target" content="_top" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="markdown,编辑器,md,HTML，本地导出" />
+    <meta name="description" content="VDraft是一款线上编辑，本地存储的在线markdown编辑器，支持markdown和HTML导出" />
+    <meta name="author" content="Vinson-sheep,www.vinsongeek.com" />
+
+    <link rel="stylesheet" type="text/css" href="static/bower/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/bower/editor.md/css/editormd.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/bower/animate.css/animate.min.css" />
+    <link rel="stylesheet" type="text/less" href="static/css/index.css" />
+    <title>VDraft.md|支持本地存储的编辑器</title>
+
+</head>
+<body>
+
+<!-- 内容整体 -->
+<div id="app">
+
+    <!-- 响应式侧栏 -->
+    <!-- #sidebar-tem -->
+    <my-sidebar :articles="articles"
+                :list_order="list_order"
+                :article_index="articleIndex"
+                @change_index="changeIndex"
+    ></my-sidebar>
+    <!-- 右侧内容栏 -->
+    <div id="content">
+        <!-- 文章信息 -->
+        <!-- -->
+        <article-message :articles="articles"
+                         :article_index="articleIndex"
+        ></article-message>
+        <!-- 装载markdown编辑器 -->
+        <markdown-editor :articles="articles"
+                         :article_index="articleIndex"
+        ></markdown-editor>
+    </div>
+
+</div>
+
+<!-- 响应式侧栏 -->
+<template id="sidebar-tem">
+
+    <div id="sidebar" :class="{hide: hide_bar}">
+
+        <!-- 用于显示Logo -->
+        <div class="logo">
+            <a href="#"><img src="static/images/vlogo.png" /></a>
+        </div>
+        <!-- 新增文章的按钮 -->
+        <div class="add-btn">
+            <button @click="addNewArticle"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;新增文章</button>
+        </div>
+        <!-- 文章列表 -->
+        <div class="article-list" sroll="no">
+            <ul id="sortable">
+
+                <li v-for="(article, index) in articles"
+                    @click="changeArticle(index)"
+                    :class="{active: activeIndex===index}"
+                    @dblclick.stop="abledIndexTo(index)"
+                    :key="article.id"
+                >
+
+                    <input type="text"
+                           v-model="article.title"
+                           :disabled="!(abledIndex===index)"
+                           @click.stop=""
+                           :class="{active: abledIndex===index}"
+                           @keydown.enter="abledIndex=-1"
+                    />
+
+                    <button @click.stop="showIndexTo(index)"><i class="fa fa-gear"></i></button>
+                    <transition>
+                        <ul v-show="showIndex===index">
+                            <li @click.stop="abledIndexTo(index)">修改名称</li>
+                            <hr/>
+                            <li @click.stop="removeArticle(index)">删除文章</li>
+                        </ul>
+                    </transition>
+
+                </li>
+
+            </ul>
+        </div>
+        <!-- 导入文章的按钮，本质上是file按钮 -->
+        <div class="import">
+            <label for="abc"><i class="fa fa-upload"></i>导入</label>
+            <input id="abc" type="file" @change="inputArticle($event)" />
+        </div>
+        <!-- 隐藏按钮，点击后可以隐藏侧栏 -->
+        <div class="hide-btn" @click.stop="hideBar">
+            <i class="fa fa-chevron-left"></i>
+        </div>
+        <!-- 显示按钮，点击后可以显示侧栏 -->
+        <div class="show-btn" @click.stop="showBar" :class="{show:hide_bar}">
+            <i class="fa fa-chevron-right"></i>
+        </div>
+
+    </div>
+
+</template><!-- sidebar-tem end -->
+
+<!-- 文章内容 -->
+<template id="article-message-tem">
+
+    <div id="article-message">
+        <p class="article-title">
+            <textarea ref='input' v-model="title" @input="changeRootTitle($event.target.value)"></textarea>
+        </p>
+        <p class="article-detail">
+            修改日期:<span class="modify-date">{{time}}</span>
+            字数:<span class="letter-count">{{count}}</span>
+        </p>
+    </div>
+
+</template>
+
+<!-- markdown编辑器 -->
+<template id="markdown-editor-tem">
+
+    <div id="markdown-editor">
+        <div id="markdown-container">
+            <textarea style="display:none;"></textarea>
+        </div>
+    </div>
+
+</template>
+
+
+<script src="static/bower/jquery/dist/jquery.min.js"></script>
+<script src="static/bower/jquery-ui/jquery-ui.min.js"></script>
+<script src="static/bower/editor.md/editormd.js"></script>
+<script src="static/bower/vue/dist/vue.js"></script>
+<script src="static/bower/vue-router/dist/vue-router.min.js"></script>
+<script src="static/bower/axios/dist/axios.min.js"></script>
+<script src="static/bower/file-saver/FileSaver.min.js"></script>
+<script src="static/bower/jquery.ui.touch/jquery.ui.touch.js"></script>
+<script src="static/js/index.js"></script>
+<script src="https://cdn.bootcss.com/less.js/3.0.0-pre.4/less.min.js"></script>
+
+</body>
+</html>
